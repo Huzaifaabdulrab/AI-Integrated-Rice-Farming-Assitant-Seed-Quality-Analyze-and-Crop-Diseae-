@@ -47,7 +47,7 @@ const YieldPrediction = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] dark:bg-slate-900 p-6 md:p-10 transition-colors duration-300">
+    <div className="min-h-screen bg-[#f8fafc] dark:bg-black p-6 md:p-10 transition-colors duration-300">
       <div className="max-w-5xl mx-auto">
         
         {/* Back Button */}
@@ -66,7 +66,7 @@ const YieldPrediction = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             
             {/* LEFT: Input Form */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6">
+            <div className="bg-white dark:bg-black border border-white rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6">
                 <h3 className="text-xl font-bold text-slate-700 dark:text-white mb-6 flex items-center gap-2">
                     <Calculator size={20} className="text-blue-500"/> Farm Details
                 </h3>
@@ -128,7 +128,7 @@ const YieldPrediction = () => {
             </div>
 
             {/* RIGHT: Results Section */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6 min-h-[400px] flex flex-col justify-center relative overflow-hidden">
+            <div className="bg-white dark:bg-black border border-white rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6 min-h-[400px] flex flex-col justify-center relative overflow-hidden">
                 
                 {/* Background Decoration */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-50 dark:bg-yellow-900/10 rounded-full -mr-10 -mt-10 pointer-events-none"></div>

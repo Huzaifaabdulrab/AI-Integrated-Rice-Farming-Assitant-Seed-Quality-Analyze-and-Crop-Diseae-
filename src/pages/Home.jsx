@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <div className="p-6 md:p-10 w-full min-h-screen bg-[#f8fafc] dark:bg-slate-900 transition-colors duration-300">
+    <div className="p-6 md:p-10 w-full min-h-screen bg-[#f8fafc] dark:bg-black transition-colors duration-300">
       
       <div className="max-w-6xl mx-auto">
       
@@ -45,7 +45,7 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             
             {/* Card 1: Seed Analysis */}
-            <Link to="/seed-scan" className="group bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border-2 border-gray-100 dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500 transition-colors duration-300 relative overflow-hidden flex flex-col h-full">
+            <Link to="/seed-scan" className="group bg-white dark:bg-black border border-white p-8 rounded-3xl shadow-sm border-2 border-gray-100 dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500 transition-colors duration-300 relative overflow-hidden flex flex-col h-full">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-green-50 dark:bg-green-900/10 rounded-full -mr-10 -mt-10 pointer-events-none"></div>
                 
                 <div className="w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl flex items-center justify-center mb-6 relative z-10">
@@ -64,7 +64,7 @@ const Home = () => {
             </Link>
 
             {/* Card 2: Disease Detection */}
-            <Link to="/disease-scan" className="group bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border-2 border-gray-100 dark:border-slate-700 hover:border-red-500 dark:hover:border-red-500 transition-colors duration-300 relative overflow-hidden flex flex-col h-full">
+            <Link to="/disease-scan" className="group bg-white dark:bg-black border border-white p-8 rounded-3xl shadow-sm border-2 border-gray-100 dark:border-slate-700 hover:border-red-500 dark:hover:border-red-500 transition-colors duration-300 relative overflow-hidden flex flex-col h-full">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 dark:bg-red-900/10 rounded-full -mr-10 -mt-10 pointer-events-none"></div>
                 
                 <div className="w-14 h-14 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center mb-6 relative z-10">
@@ -83,7 +83,7 @@ const Home = () => {
             </Link>
 
             {/* Card 3: Yield Prediction */}
-            <Link to="/yield" className="group bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border-2 border-gray-100 dark:border-slate-700 hover:border-yellow-500 dark:hover:border-yellow-500 transition-colors duration-300 relative overflow-hidden flex flex-col h-full">
+            <Link to="/yield" className="group bg-white dark:bg-black border border-white p-8 rounded-3xl shadow-sm border-2 border-gray-100 dark:border-slate-700 hover:border-yellow-500 dark:hover:border-yellow-500 transition-colors duration-300 relative overflow-hidden flex flex-col h-full">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-50 dark:bg-yellow-900/10 rounded-full -mr-10 -mt-10 pointer-events-none"></div>
                 
                 <div className="w-14 h-14 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-2xl flex items-center justify-center mb-6 relative z-10">
@@ -102,7 +102,7 @@ const Home = () => {
             </Link>
 
             {/* Card 4: History */}
-            <Link to="/history" className="group bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border-2 border-gray-100 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 transition-colors duration-300 relative overflow-hidden flex flex-col h-full">
+            <Link to="/history" className="group bg-white dark:bg-black border border-white p-8 rounded-3xl shadow-sm border-2 border-gray-100 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 transition-colors duration-300 relative overflow-hidden flex flex-col h-full">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 dark:bg-blue-900/10 rounded-full -mr-10 -mt-10 pointer-events-none"></div>
                 
                 <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-6 relative z-10">

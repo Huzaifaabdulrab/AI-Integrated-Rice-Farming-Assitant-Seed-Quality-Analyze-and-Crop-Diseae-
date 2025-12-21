@@ -17,7 +17,7 @@ const App = () => {
     <ThemeProvider> 
       <Router>
         {/* Main Wrapper */}
-        <div className="flex bg-slate-50 dark:bg-slate-900 min-h-screen w-full overflow-x-hidden">
+        <div className="flex bg-slate-50 dark:bg-black min-h-screen w-full overflow-x-hidden">
           
           <Sidebar />
 
