@@ -56,7 +56,7 @@ const DiseaseDetection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] dark:bg-slate-900 p-6 md:p-10 transition-colors duration-300">
+    <div className="min-h-screen bg-[#f8fafc] dark:bg-black p-6 md:p-10 transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
         
         {/* Header */}
@@ -74,7 +74,7 @@ const DiseaseDetection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             
             {/* LEFT: Upload Section */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6">
+            <div className="bg-white dark:bg-black border border-white rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6">
                 {!selectedImage ? (
                     <div 
                         onClick={triggerFileInput}
@@ -108,7 +108,7 @@ const DiseaseDetection = () => {
             </div>
 
             {/* RIGHT: Result Section */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6 min-h-[400px] flex flex-col justify-center">
+            <div className="bg-white dark:bg-black border border-white rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6 min-h-[400px] flex flex-col justify-center">
                 
                 {!analysisResult && !isAnalyzing && (
                     <div className="text-center text-slate-400">

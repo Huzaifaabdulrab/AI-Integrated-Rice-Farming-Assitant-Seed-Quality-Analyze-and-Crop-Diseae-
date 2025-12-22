@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 
 const SeedInfo = () => {
   return (
-    <div className="w-full min-h-screen bg-slate-50 dark:bg-slate-900 font-sans text-slate-600 dark:text-slate-300 transition-colors duration-300">
+    <div className="w-full min-h-screen bg-slate-50 dark:bg-black font-sans text-slate-600 dark:text-slate-300 transition-colors duration-300">
       
       {/* Header */}
       <div className="py-8 px-6">
         <div className="max-w-5xl mx-auto">
-            <Link to="/" className="inline-flex items-center gap-2 text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 transition-colors font-medium mb-4 bg-white dark:bg-slate-800 px-4 py-2 rounded-full text-sm shadow-sm border border-green-100 dark:border-slate-700">
+            <Link to="/" className="inline-flex items-center gap-2 text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 transition-colors font-medium mb-4 bg-white dark:bg-black border border-white px-4 py-2 rounded-full text-sm shadow-sm border border-green-100 dark:border-slate-700">
                 <ArrowLeft size={18} /> Back to Dashboard
             </Link>
         </div>
       </div>
 
       <div className="max-w-5xl mx-auto px-6 pb-12">
-        <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-white dark:border-slate-700 overflow-hidden">
+        <div className="bg-white dark:bg-black border border-white rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-white dark:border-slate-700 overflow-hidden">
             
             {/* Hero Section */}
             <div className="p-8 md:p-12 text-center border-b border-slate-100 dark:border-slate-700">
@@ -35,7 +35,7 @@ const SeedInfo = () => {
             </div>
 
             {/* How it Works Grid */}
-            <div className="p-8 md:p-12 bg-slate-50/50 dark:bg-slate-800/50">
+            <div className="p-8 md:p-12 bg-slate-50/50 dark:bg-black border border-white/50">
                 <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-8 text-center">How It Works</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Step 1 */}

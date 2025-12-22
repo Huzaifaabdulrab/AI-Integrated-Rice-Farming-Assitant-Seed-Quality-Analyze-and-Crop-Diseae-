@@ -11,7 +11,7 @@ const SeedAnalysis = () => {
       <div className="py-8 px-6">
         <div className="max-w-5xl mx-auto">
             {/* Back Button */}
-            <Link to="/" className="inline-flex items-center gap-2 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 transition-colors font-medium mb-4 bg-white dark:bg-slate-800 px-4 py-2 rounded-full text-sm shadow-sm border border-emerald-100 dark:border-slate-700">
+            <Link to="/" className="inline-flex items-center gap-2 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 transition-colors font-medium mb-4 bg-white dark:bg-black border border-white px-4 py-2 rounded-full text-sm shadow-sm border border-emerald-100 dark:border-slate-700">
                 <ArrowLeft size={18} /> Back to Dashboard
             </Link>
             
@@ -33,13 +33,13 @@ const SeedAnalysis = () => {
       {/* Main Content */}
       <div className="max-w-5xl mx-auto px-6 pb-12">
         {/* Main Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-white dark:border-slate-700 p-8 md:p-12 transition-colors duration-300">
+        <div className="bg-white dark:bg-black border border-white rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-white dark:border-slate-700 p-8 md:p-12 transition-colors duration-300">
             
             {/* Cards with REAL SYMBOLS */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 max-w-3xl mx-auto">
                 
                 {/* 1. Upload Symbol (Picture Frame 🖼️) */}
-                <div className="group relative aspect-square bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20 transition-all duration-300 rounded-3xl cursor-pointer flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1">
+                <div className="group relative aspect-square bg-slate-50 dark:bg-black border-2 border-slate-100 dark:border-slate-700 hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20 transition-all duration-300 rounded-3xl cursor-pointer flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1">
                     
                     {/* The Picture Symbol */}
                     <div className="text-6xl mb-6 drop-shadow-sm filter group-hover:scale-110 transition-transform duration-300">
@@ -55,7 +55,7 @@ const SeedAnalysis = () => {
                 </div>
 
                 {/* 2. Camera Symbol (Camera 📸) */}
-                <div className="group relative aspect-square bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 hover:border-green-400 dark:hover:border-green-500 hover:bg-green-50/30 dark:hover:bg-green-900/20 transition-all duration-300 rounded-3xl cursor-pointer flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1">
+                <div className="group relative aspect-square bg-slate-50 dark:bg-black border-2 border-slate-100 dark:border-slate-700 hover:border-green-400 dark:hover:border-green-500 hover:bg-green-50/30 dark:hover:bg-green-900/20 transition-all duration-300 rounded-3xl cursor-pointer flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1">
                     
                     {/* The Camera Symbol */}
                     <div className="text-6xl mb-6 drop-shadow-sm filter group-hover:scale-110 transition-transform duration-300">
@@ -73,18 +73,18 @@ const SeedAnalysis = () => {
             </div>
 
             {/* Footer Tips */}
-            <div className="bg-emerald-50 dark:bg-slate-900/50 rounded-2xl p-6 border border-emerald-100 dark:border-slate-700">
+            <div className="bg-emerald-50 dark:bg-black/50 rounded-2xl p-6 border border-emerald-100 dark:border-slate-700">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
                     <div className="flex items-center gap-3">
-                        <div className="bg-white dark:bg-slate-800 p-2 rounded-full text-emerald-500 shadow-sm"><Layers size={18}/></div>
+                        <div className="bg-white dark:bg-black border border-white p-2 rounded-full text-emerald-500 shadow-sm"><Layers size={18}/></div>
                         <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">Spread evenly</span>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="bg-white dark:bg-slate-800 p-2 rounded-full text-emerald-500 shadow-sm"><Sun size={18}/></div>
+                        <div className="bg-white dark:bg-black border border-white p-2 rounded-full text-emerald-500 shadow-sm"><Sun size={18}/></div>
                         <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">Bright lighting</span>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="bg-white dark:bg-slate-800 p-2 rounded-full text-emerald-500 shadow-sm"><Focus size={18}/></div>
+                        <div className="bg-white dark:bg-black border border-white p-2 rounded-full text-emerald-500 shadow-sm"><Focus size={18}/></div>
                         <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">Steady focus</span>
                     </div>
                 </div>

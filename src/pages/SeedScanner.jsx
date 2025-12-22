@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { ArrowLeft, Upload, X, ArrowRight, Loader2, Sprout, CheckCircle, AlertTriangle, Activity, Droplets } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import CameraCapture from '../components/Camera';
 
 const SeedScanner = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -52,7 +53,7 @@ const SeedScanner = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] dark:bg-slate-900 p-6 md:p-10 transition-colors duration-300">
+    <div className="min-h-screen bg-[#f8fafc] dark:bg-black p-6 md:p-10 transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
         
         {/* Back Button */}
@@ -68,10 +69,11 @@ const SeedScanner = () => {
             <p className="text-slate-500 dark:text-slate-400">Upload a clear photo to get instant quality report.</p>
         </div>
 
+                    <CameraCapture/>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             
             {/* LEFT SIDE: Image Upload Section */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6">
+            <div className="dark:bg-black  border border-white rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6 ">
                 {!selectedImage ? (
                     <div 
                         onClick={triggerFileInput}
@@ -82,6 +84,7 @@ const SeedScanner = () => {
                             <Upload size={32} />
                         </div>
                         <p className="font-bold text-slate-700 dark:text-slate-200">Click to Upload Seed Image</p>
+                    
                     </div>
                 ) : (
                     <div className="relative h-80 rounded-2xl overflow-hidden border-2 border-green-500">
@@ -105,7 +108,7 @@ const SeedScanner = () => {
             </div>
 
             {/* RIGHT SIDE: Results Section */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6 min-h-[400px] flex flex-col justify-center">
+            <div className="bg-white dark:bg-black border border-white rounded-3xl shadow-sm border-2 border-slate-100 dark:border-slate-700 p-6  flex flex-col justify-center">
                 
                 {!analysisResult && !isAnalyzing && (
                     <div className="text-center text-slate-400">
