@@ -17,7 +17,14 @@ const Login = () => {
     try {
       // Firebase Login Function
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/'); // Kamyab hone par Dashboard par bhejo
+      // Check for a redirect path in localStorage
+      const redirectPath = localStorage.getItem('redirectPath');
+      if (redirectPath) {
+        localStorage.removeItem('redirectPath'); // Clear the stored path
+        navigate(redirectPath);
+      } else {
+        navigate('/'); // Kamyab hone par Dashboard par bhejo
+      }
     } catch (error) {
       alert("Login Failed: " + error.message);
     }

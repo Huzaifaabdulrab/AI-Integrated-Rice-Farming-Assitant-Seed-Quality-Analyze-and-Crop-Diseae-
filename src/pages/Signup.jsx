@@ -18,7 +18,14 @@ const Signup = () => {
       // Firebase Signup Function
       await createUserWithEmailAndPassword(auth, email, password);
       alert("Account Created Successfully!");
-      navigate('/'); // Dashboard par bhejo
+      // Check for a redirect path in localStorage
+      const redirectPath = localStorage.getItem('redirectPath');
+      if (redirectPath) {
+        localStorage.removeItem('redirectPath'); // Clear the stored path
+        navigate(redirectPath);
+      } else {
+        navigate('/'); // Dashboard par bhejo
+      }
     } catch (error) {
       alert("Error: " + error.message);
     }

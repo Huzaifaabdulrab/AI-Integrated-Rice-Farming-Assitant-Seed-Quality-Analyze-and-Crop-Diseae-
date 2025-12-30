@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
@@ -9,17 +9,22 @@ import {
   Microscope, 
   Moon, 
   Sun, 
-  Languages 
+  Languages, 
+  Bug,
+  History 
 } from 'lucide-react';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
+import { useTheme } from '../Context/ThemeContext'; // Import useTheme
+import { useAuth } from '../Context/AuthContext'; // Import useAuth
 
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { theme, setTheme } = useTheme(); // Use ThemeContext
+  const { user } = useAuth(); // Use AuthContext to get user status
 
   // Settings State
-  const [darkMode, setDarkMode] = useState(false);
   const [language, setLanguage] = useState('English');
 
   // Logout Function
@@ -32,25 +37,22 @@ const Sidebar = () => {
     }
   };
 
-  // Dark Mode Toggle Logic
+  // Dark Mode Toggle Logic using ThemeContext
   const toggleTheme = () => {
-    setDarkMode(!darkMode);
-    // Yeh simple logic abhi sirf body ka color change karegi testing ke liye
-    if (!darkMode) {
-      document.body.style.backgroundColor = '#1e293b'; // Dark color
-      document.body.style.color = 'white';
-    } else {
-      document.body.style.backgroundColor = '#f8fafc'; // Light color
-      document.body.style.color = 'black';
-    }
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
+
+  const darkMode = theme === 'dark'; // Check for dark mode from context
 
   // Menu List (Ab ismein Seed Quality bhi hai)
   const menuItems = [
     { path: '/', name: 'Dashboard', icon: <LayoutDashboard size={20} /> },
-    { path: '/seed-analyzer', name: 'Seed Quality', icon: <Microscope size={20} /> }, // Added
+    { path: '/seed-analysis', name: 'Seed Quality', icon: <Microscope size={20} /> }, // Corrected path
     { path: '/yield-prediction', name: 'Yield Predictor', icon: <Sprout size={20} /> },
     { path: '/disease-scanner', name: 'Disease Scanner', icon: <ScanLine size={20} /> },
+    // Adding other protected routes from App.jsx that should appear in the sidebar
+    { path: '/disease-detection', name: 'Disease Detection', icon: <Bug size={20} /> }, // Assuming icon from original sidebar
+    { path: '/history', name: 'History', icon: <History size={20} /> }, // Assuming icon from original sidebar
   ];
 
   return (
@@ -110,14 +112,16 @@ const Sidebar = () => {
             </button>
         </div>
 
-        {/* Sign Out Button */}
-        <button 
-          onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors font-medium"
-        >
-          <LogOut size={20} />
-          <span>Sign Out</span>
-        </button>
+        {/* Sign Out Button - Conditionally rendered */}
+        {user && (
+          <button 
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/10 dark:hover:text-red-400 rounded-xl transition-colors font-medium"
+          >
+            <LogOut size={20} />
+            <span>Sign Out</span>
+          </button>
+        )}
       </div>
 
     </div>
