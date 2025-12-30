@@ -1,116 +1,127 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useTheme } from "../Context/ThemeContext";// ✅ Context Import
-import {
-    LayoutDashboard, Sprout, Bug, TrendingUp, History, Leaf, LogOut, Globe, ChevronDown, Palette
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { 
+  LayoutDashboard, 
+  Sprout, 
+  ScanLine, 
+  LogOut, 
+  Leaf, 
+  Microscope, 
+  Moon, 
+  Sun, 
+  Languages 
 } from 'lucide-react';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
 
 const Sidebar = () => {
-    const location = useLocation();
-    const isActive = (path) => location.pathname === path;
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    // ✅ Context se Theme le rahe hain
-    const { theme, setTheme } = useTheme();
-    const [language, setLanguage] = useState('en');
+  // Settings State
+  const [darkMode, setDarkMode] = useState(false);
+  const [language, setLanguage] = useState('English');
 
-    const menuItems = [
-        { path: '/', name: 'Dashboard', icon: <LayoutDashboard size={18} /> },
-        { path: '/seed', name: 'Seed Analysis', icon: <Sprout size={18} /> },
-        { path: '/disease', name: 'Disease Detection', icon: <Bug size={18} /> },
-        { path: '/yield', name: 'Yield Prediction', icon: <TrendingUp size={18} /> },
-        { path: '/history', name: 'History', icon: <History size={18} /> },
-    ];
+  // Logout Function
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate('/login');
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
 
-    return (
-        // ✅ Dark Mode Classes Added (dark:bg-black, dark:border-slate-800)
-        <div className="w-64 h-screen bg-white dark:bg-black border-r border-slate-200 dark:border-slate-800 flex flex-col fixed left-0 top-0 shadow-sm z-50 hidden md:flex transition-colors duration-300">
+  // Dark Mode Toggle Logic
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+    // Yeh simple logic abhi sirf body ka color change karegi testing ke liye
+    if (!darkMode) {
+      document.body.style.backgroundColor = '#1e293b'; // Dark color
+      document.body.style.color = 'white';
+    } else {
+      document.body.style.backgroundColor = '#f8fafc'; // Light color
+      document.body.style.color = 'black';
+    }
+  };
 
-            {/* Logo */}
-            <div className="p-5 flex items-center gap-3 border-b border-slate-50 dark:border-slate-800">
-                <div className="bg-green-100 dark:bg-green-900/30 p-2 rounded-lg text-green-600 shrink-0">
-                    <Leaf size={20} />
-                </div>
-                <h1 className="text-lg font-extrabold text-slate-800 dark:text-white leading-tight">
-                    Kisan Pakistan <br /> <span className="text-green-600">Agriculture AI</span>
-                </h1>
-            </div>
+  // Menu List (Ab ismein Seed Quality bhi hai)
+  const menuItems = [
+    { path: '/', name: 'Dashboard', icon: <LayoutDashboard size={20} /> },
+    { path: '/seed-analyzer', name: 'Seed Quality', icon: <Microscope size={20} /> }, // Added
+    { path: '/yield-prediction', name: 'Yield Predictor', icon: <Sprout size={20} /> },
+    { path: '/disease-scanner', name: 'Disease Scanner', icon: <ScanLine size={20} /> },
+  ];
 
-            <div className="flex-1 overflow-y-auto py-4 px-4 space-y-6">
-
-                {/* Navigation */}
-                <div>
-                    <h3 className="text-xs font-bold text-green-600 uppercase tracking-wider mb-3 px-2">Navigation</h3>
-                    <nav className="space-y-1">
-                        {menuItems.map((item) => (
-                            <Link
-                                key={item.path}
-                                to={item.path}
-                                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 text-sm font-medium ${isActive(item.path)
-                                        ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-100 dark:border-green-800'
-                                        : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-slate-200'
-                                    }`}
-                            >
-                                <span className={isActive(item.path) ? 'text-green-600 dark:text-green-400' : 'text-slate-400 dark:text-slate-500'}>
-                                    {item.icon}
-                                </span>
-                                {item.name}
-                            </Link>
-                        ))}
-                    </nav>
-                </div>
-
-                {/* Language */}
-                <div>
-                    <h3 className="text-xs font-bold text-green-600 uppercase tracking-wider mb-3 px-2">Language</h3>
-                    <div className="relative">
-                        <Globe className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
-                        <select
-                            value={language}
-                            onChange={(e) => setLanguage(e.target.value)}
-                            className="w-full pl-9 pr-8 py-2.5 bg-slate-50 dark:bg-black border border-white border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 appearance-none cursor-pointer outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all hover:bg-slate-100 dark:hover:bg-slate-700"
-                        ><option value="en">English</option>
-                            <option value="ur">اردو (Urdu)</option>
-                            <option value="pa">پنجابی (Punjabi)</option>
-                            <option value="sd">سنڌي (Sindhi)</option>
-                            <option value="ps">پښتو (Pashto)</option>
-                            <option value="bal">بلوچی (Balochi)</option>
-                            <option value="skr">سرائیکی (Saraiki)</option>
-                            <option value="brh">براہوی (Brahui)</option>
-
-                        </select>
-                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={14} />
-                    </div>
-                </div>
-
-                {/* Theme ✅ (Logic Added) */}
-                <div>
-                    <h3 className="text-xs font-bold text-green-600 uppercase tracking-wider mb-3 px-2">Theme</h3>
-                    <div className="relative">
-                        <Palette className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
-                        <select
-                            value={theme}
-                            onChange={(e) => setTheme(e.target.value)} // Theme change logic
-                            className="w-full pl-9 pr-8 py-2.5 bg-slate-50 dark:bg-black border border-white border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 appearance-none cursor-pointer outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all hover:bg-slate-100 dark:hover:bg-slate-700"
-                        >
-                            <option value="light">Light Mode</option>
-                            <option value="dark">Dark Mode</option>
-                            <option value="system">System Default</option>
-                        </select>
-                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={14} />
-                    </div>
-                </div>
-
-            </div>
-
-            <div className="p-3 border-t border-slate-100 dark:border-slate-800">
-                <button className="flex items-center gap-3 w-full px-3 py-2 text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors text-sm font-medium">
-                    <LogOut size={18} />
-                    <span>Sign Out</span>
-                </button>
-            </div>
-
+  return (
+    <div className={`w-64 border-r flex flex-col h-screen transition-all shadow-lg flex-shrink-0 ${darkMode ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'}`}>
+      
+      {/* 1. Logo Section */}
+      <div className={`p-6 flex items-center gap-3 border-b ${darkMode ? 'border-slate-700' : 'border-slate-100'}`}>
+        <div className="bg-green-600 p-2 rounded-xl">
+          <Leaf className="text-white" size={24} />
         </div>
-    );
+        <h1 className={`text-xl font-bold tracking-tight ${darkMode ? 'text-white' : 'text-slate-800'}`}>RiceAI</h1>
+      </div>
+
+      {/* 2. Navigation Menu */}
+      <nav className="flex-1 p-4 space-y-2 mt-4 overflow-y-auto">
+        {menuItems.map((item) => {
+          const isActive = location.pathname === item.path;
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 font-medium ${
+                isActive 
+                  ? 'bg-green-600 text-white shadow-md' 
+                  : (darkMode ? 'text-slate-400 hover:bg-slate-800' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900')
+              }`}
+            >
+              <div>{item.icon}</div>
+              <span>{item.name}</span>
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* 3. Settings & Logout Area */}
+      <div className={`p-4 border-t ${darkMode ? 'border-slate-700' : 'border-slate-100'} space-y-3`}>
+        
+        {/* Dark Mode & Language Toggles */}
+        <div className={`flex items-center justify-between p-2 rounded-xl ${darkMode ? 'bg-slate-800' : 'bg-slate-50'}`}>
+            
+            {/* Dark Mode Button */}
+            <button 
+                onClick={toggleTheme}
+                className={`p-2 rounded-lg transition-all ${darkMode ? 'bg-slate-600 text-yellow-400' : 'text-slate-400 hover:bg-white hover:shadow-sm'}`}
+                title="Toggle Dark Mode"
+            >
+                {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
+            {/* Language Button */}
+            <button 
+                onClick={() => setLanguage(language === 'English' ? 'Urdu' : 'English')}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${darkMode ? 'text-white' : 'text-slate-600 hover:bg-white hover:shadow-sm'}`}
+            >
+                <Languages size={16} />
+                {language === 'English' ? 'ENG' : 'اردو'}
+            </button>
+        </div>
+
+        {/* Sign Out Button */}
+        <button 
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors font-medium"
+        >
+          <LogOut size={20} />
+          <span>Sign Out</span>
+        </button>
+      </div>
+
+    </div>
+  );
 };
 
 export default Sidebar;
