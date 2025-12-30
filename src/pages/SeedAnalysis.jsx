@@ -1,95 +1,130 @@
-import React from 'react';
-import { ArrowLeft, ChevronRight, Sprout, Layers, Sun, Focus } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { Upload, Microscope, CheckCircle, AlertCircle, X } from 'lucide-react';
 
 const SeedAnalysis = () => {
+  const [analyzing, setAnalyzing] = useState(false);
+  const [result, setResult] = useState(null);
+  const [image, setImage] = useState(null); // Image store karne ke liye
+  const fileInputRef = useRef(null); // Hidden input ko click karne ke liye
+
+  // Image Select Karne Ka Function
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl);
+      setResult(null); // Purana result hata do agar nayi image hai
+    }
+  };
+
+  const handleAnalyze = () => {
+    if (!image) return; // Agar image nahi hai to kuch mat karo
+    setAnalyzing(true);
+    
+    // Fake AI Delay
+    setTimeout(() => {
+      setAnalyzing(false);
+      setResult({
+        quality: "Good",
+        purity: "92%",
+        moisture: "12%",
+        recommendation: "Suitable for planting. Treat with fungicide before sowing."
+      });
+    }, 2000);
+  };
+
   return (
-    // Main Container: Added dark gradients and text colors
-    <div className="w-full min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 font-sans text-slate-600 dark:text-slate-300 transition-colors duration-300">
-      
-      {/* Header */}
-      <div className="py-8 px-6">
-        <div className="max-w-5xl mx-auto">
-            {/* Back Button */}
-            <Link to="/" className="inline-flex items-center gap-2 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 transition-colors font-medium mb-4 bg-white dark:bg-black border border-white px-4 py-2 rounded-full text-sm shadow-sm border border-emerald-100 dark:border-slate-700">
-                <ArrowLeft size={18} /> Back to Dashboard
-            </Link>
-            
-            <div className="flex flex-col md:flex-row justify-between items-end gap-4">
-                <div>
-                    <h1 className="text-3xl font-bold text-slate-800 dark:text-white">Seed Analysis</h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-2 max-w-lg">
-                        Check seed purity and count using AI.
-                    </p>
-                </div>
-                {/* Badge */}
-                <div className="flex items-center gap-2 bg-emerald-100 dark:bg-emerald-900/30 px-4 py-2 rounded-xl border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 font-bold text-xs uppercase tracking-wide">
-                    <Sprout size={16} /> Lab AI Active
-                </div>
-            </div>
-        </div>
+    <div className="p-6 max-w-4xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-slate-800 flex items-center gap-3">
+          <Microscope className="text-blue-600" size={32} />
+          Seed Quality Analyzer
+        </h1>
+        <p className="text-slate-500">Upload an image of your rice seeds to check their quality.</p>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-5xl mx-auto px-6 pb-12">
-        {/* Main Card */}
-        <div className="bg-white dark:bg-black border border-white rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-white dark:border-slate-700 p-8 md:p-12 transition-colors duration-300">
-            
-            {/* Cards with REAL SYMBOLS */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 max-w-3xl mx-auto">
-                
-                {/* 1. Upload Symbol (Picture Frame 🖼️) */}
-                <div className="group relative aspect-square bg-slate-50 dark:bg-black border-2 border-slate-100 dark:border-slate-700 hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20 transition-all duration-300 rounded-3xl cursor-pointer flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1">
-                    
-                    {/* The Picture Symbol */}
-                    <div className="text-6xl mb-6 drop-shadow-sm filter group-hover:scale-110 transition-transform duration-300">
-                        🖼️
-                    </div>
-                    
-                    <h3 className="font-bold text-slate-800 dark:text-white text-xl group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">Upload Sample</h3>
-                    <p className="text-sm text-slate-400 dark:text-slate-500 mt-2">From Gallery</p>
-                    
-                    <div className="absolute bottom-8 opacity-0 group-hover:opacity-100 transition-opacity text-emerald-600 dark:text-emerald-400 font-bold text-sm flex items-center gap-1">
-                        Select File <ChevronRight size={16} />
-                    </div>
-                </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        {/* === UPLOAD SECTION === */}
+        <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-center">
+          
+          {/* Asli Input (Hidden) */}
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            onChange={handleImageUpload} 
+            className="hidden" 
+            accept="image/*"
+          />
 
-                {/* 2. Camera Symbol (Camera 📸) */}
-                <div className="group relative aspect-square bg-slate-50 dark:bg-black border-2 border-slate-100 dark:border-slate-700 hover:border-green-400 dark:hover:border-green-500 hover:bg-green-50/30 dark:hover:bg-green-900/20 transition-all duration-300 rounded-3xl cursor-pointer flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1">
-                    
-                    {/* The Camera Symbol */}
-                    <div className="text-6xl mb-6 drop-shadow-sm filter group-hover:scale-110 transition-transform duration-300">
-                        📸
+          {/* Upload Box (Clickable) */}
+          <div 
+            onClick={() => fileInputRef.current.click()} // Yahan click karne se input trigger hoga
+            className={`w-full h-64 bg-slate-50 border-2 border-dashed ${image ? 'border-blue-500' : 'border-slate-300'} rounded-2xl flex flex-col items-center justify-center mb-6 cursor-pointer hover:bg-blue-50 hover:border-blue-300 transition-all overflow-hidden relative`}
+          >
+            {image ? (
+                // Agar Image Select Ho Gayi Hai
+                <>
+                    <img src={image} alt="Seed Preview" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                        <p className="text-white font-bold">Change Image</p>
                     </div>
-                    
-                    <h3 className="font-bold text-slate-800 dark:text-white text-xl group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors">Start Scan</h3>
-                    <p className="text-sm text-slate-400 dark:text-slate-500 mt-2">Live Camera</p>
+                </>
+            ) : (
+                // Agar Image Nahi Hai
+                <>
+                    <Upload className="text-slate-400 mb-2" size={48} />
+                    <p className="text-slate-500 font-medium">Click to upload seed image</p>
+                    <p className="text-xs text-slate-400 mt-1">JPG, PNG supported</p>
+                </>
+            )}
+          </div>
 
-                    <div className="absolute bottom-8 opacity-0 group-hover:opacity-100 transition-opacity text-green-600 dark:text-green-400 font-bold text-sm flex items-center gap-1">
-                        Open Camera <ChevronRight size={16} />
-                    </div>
-                </div>
+          <button 
+            onClick={handleAnalyze}
+            disabled={analyzing || !image}
+            className={`w-full font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 ${
+                !image ? 'bg-slate-300 text-slate-500 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 text-white'
+            }`}
+          >
+            {analyzing ? "Analyzing..." : "Check Quality"}
+          </button>
+        </div>
 
+        {/* Results Section (Same as before) */}
+        <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
+          <h2 className="text-xl font-bold text-slate-800 mb-4">Analysis Report</h2>
+          {!result ? (
+            <div className="h-full flex flex-col items-center justify-center text-slate-400 min-h-[200px]">
+              <AlertCircle size={48} className="mb-2 opacity-50" />
+              <p>Upload an image to start analysis.</p>
             </div>
-
-            {/* Footer Tips */}
-            <div className="bg-emerald-50 dark:bg-black/50 rounded-2xl p-6 border border-emerald-100 dark:border-slate-700">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
-                    <div className="flex items-center gap-3">
-                        <div className="bg-white dark:bg-black border border-white p-2 rounded-full text-emerald-500 shadow-sm"><Layers size={18}/></div>
-                        <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">Spread evenly</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <div className="bg-white dark:bg-black border border-white p-2 rounded-full text-emerald-500 shadow-sm"><Sun size={18}/></div>
-                        <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">Bright lighting</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <div className="bg-white dark:bg-black border border-white p-2 rounded-full text-emerald-500 shadow-sm"><Focus size={18}/></div>
-                        <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">Steady focus</span>
-                    </div>
+          ) : (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between p-4 bg-green-50 rounded-xl border border-green-100">
+                <span className="text-slate-600 font-medium">Overall Quality</span>
+                <span className="text-green-700 font-bold text-lg flex items-center gap-2">
+                  <CheckCircle size={20} /> {result.quality}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 bg-slate-50 rounded-xl">
+                  <p className="text-xs text-slate-400 uppercase font-bold">Purity</p>
+                  <p className="text-2xl font-bold text-slate-800">{result.purity}</p>
                 </div>
+                <div className="p-4 bg-slate-50 rounded-xl">
+                  <p className="text-xs text-slate-400 uppercase font-bold">Moisture</p>
+                  <p className="text-2xl font-bold text-slate-800">{result.moisture}</p>
+                </div>
+              </div>
+              <div>
+                <p className="text-sm font-bold text-slate-700 mb-2">Recommendation:</p>
+                <p className="text-slate-600 text-sm leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-100">
+                  {result.recommendation}
+                </p>
+              </div>
             </div>
-
+          )}
         </div>
       </div>
     </div>
