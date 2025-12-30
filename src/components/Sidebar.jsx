@@ -1,128 +1,145 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Sprout, 
-  ScanLine, 
-  LogOut, 
-  Leaf, 
-  Microscope, 
-  Moon, 
-  Sun, 
-  Languages, 
+import {
+  LayoutDashboard,
+  Sprout,
+  ScanLine,
+  LogOut,
+  Leaf,
+  Microscope,
+  Moon,
+  Sun,
+  Languages,
   Bug,
-  History 
+  History
 } from 'lucide-react';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
-import { useTheme } from '../Context/ThemeContext'; // Import useTheme
-import { useAuth } from '../Context/AuthContext'; // Import useAuth
+import { useTheme } from '../Context/ThemeContext';
+import { useAuth } from '../Context/AuthContext';
 
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { theme, setTheme } = useTheme(); // Use ThemeContext
-  const { user } = useAuth(); // Use AuthContext to get user status
+  const { theme, setTheme } = useTheme();
+  const { user } = useAuth();
 
-  // Settings State
   const [language, setLanguage] = useState('English');
 
-  // Logout Function
+  const darkMode = theme === 'dark';
+
   const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate('/login');
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
+    await signOut(auth);
+    navigate('/login');
   };
 
-  // Dark Mode Toggle Logic using ThemeContext
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTheme(darkMode ? 'light' : 'dark');
   };
 
-  const darkMode = theme === 'dark'; // Check for dark mode from context
-
-  // Menu List (Ab ismein Seed Quality bhi hai)
   const menuItems = [
     { path: '/', name: 'Dashboard', icon: <LayoutDashboard size={20} /> },
-    { path: '/seed-analysis', name: 'Seed Quality', icon: <Microscope size={20} /> }, // Corrected path
+    { path: '/seed-analysis', name: 'Seed Quality', icon: <Microscope size={20} /> },
     { path: '/yield-prediction', name: 'Yield Predictor', icon: <Sprout size={20} /> },
     { path: '/disease-scanner', name: 'Disease Scanner', icon: <ScanLine size={20} /> },
-    // Adding other protected routes from App.jsx that should appear in the sidebar
-    { path: '/disease-detection', name: 'Disease Detection', icon: <Bug size={20} /> }, // Assuming icon from original sidebar
-    { path: '/history', name: 'History', icon: <History size={20} /> }, // Assuming icon from original sidebar
+    { path: '/disease-detection', name: 'Disease Detection', icon: <Bug size={20} /> },
+    { path: '/history', name: 'History', icon: <History size={20} /> },
   ];
 
   return (
-    <div className={`w-64 border-r flex flex-col h-screen transition-all shadow-lg flex-shrink-0 ${darkMode ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'}`}>
-      
-      {/* 1. Logo Section */}
-      <div className={`p-6 flex items-center gap-3 border-b ${darkMode ? 'border-slate-700' : 'border-slate-100'}`}>
+    <div className={`w-64 h-screen flex flex-col border-r ${darkMode ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'}`}>
+
+      {/* Logo */}
+      <div className="p-6 flex items-center gap-3 border-b">
         <div className="bg-green-600 p-2 rounded-xl">
           <Leaf className="text-white" size={24} />
         </div>
-        <h1 className={`text-xl font-bold tracking-tight ${darkMode ? 'text-white' : 'text-slate-800'}`}>RiceAI</h1>
+        <h1 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-slate-800'}`}>
+          RiceAI
+        </h1>
       </div>
 
-      {/* 2. Navigation Menu */}
-      <nav className="flex-1 p-4 space-y-2 mt-4 overflow-y-auto">
-        {menuItems.map((item) => {
-          const isActive = location.pathname === item.path;
+      {/* Navigation */}
+      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        {menuItems.map(item => {
+          const active = location.pathname === item.path;
           return (
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 font-medium ${
-                isActive 
-                  ? 'bg-green-600 text-white shadow-md' 
-                  : (darkMode ? 'text-slate-400 hover:bg-slate-800' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900')
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition ${
+                active
+                  ? 'bg-green-600 text-white'
+                  : darkMode
+                  ? 'text-slate-400 hover:bg-slate-800'
+                  : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
-              <div>{item.icon}</div>
-              <span>{item.name}</span>
+              {item.icon}
+              {item.name}
             </Link>
           );
         })}
       </nav>
 
-      {/* 3. Settings & Logout Area */}
-      <div className={`p-4 border-t ${darkMode ? 'border-slate-700' : 'border-slate-100'} space-y-3`}>
-        
-        {/* Dark Mode & Language Toggles */}
-        <div className={`flex items-center justify-between p-2 rounded-xl ${darkMode ? 'bg-slate-800' : 'bg-slate-50'}`}>
-            
-            {/* Dark Mode Button */}
-            <button 
-                onClick={toggleTheme}
-                className={`p-2 rounded-lg transition-all ${darkMode ? 'bg-slate-600 text-yellow-400' : 'text-slate-400 hover:bg-white hover:shadow-sm'}`}
-                title="Toggle Dark Mode"
-            >
-                {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
+    {/* Bottom */}
+<div
+  className={`p-4 border-t space-y-3 transition-colors ${
+    darkMode
+      ? 'border-slate-700 bg-slate-900'
+      : 'border-slate-200 bg-white'
+  }`}
+>
+  {/* Theme + Language */}
+  <div
+    className={`flex justify-between items-center p-2 rounded-xl ${
+      darkMode ? 'bg-slate-800' : 'bg-slate-100'
+    }`}
+  >
+    {/* Theme Toggle */}
+    <button
+      onClick={toggleTheme}
+      className={`p-2 rounded-lg transition ${
+        darkMode
+          ? 'text-yellow-400 hover:bg-slate-700'
+          : 'text-slate-600 hover:bg-white hover:shadow'
+      }`}
+      title="Toggle Theme"
+    >
+      {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+    </button>
 
-            {/* Language Button */}
-            <button 
-                onClick={() => setLanguage(language === 'English' ? 'Urdu' : 'English')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${darkMode ? 'text-white' : 'text-slate-600 hover:bg-white hover:shadow-sm'}`}
-            >
-                <Languages size={16} />
-                {language === 'English' ? 'ENG' : 'اردو'}
-            </button>
-        </div>
+    {/* Language Toggle */}
+    <button
+      onClick={() =>
+        setLanguage(language === 'English' ? 'Urdu' : 'English')
+      }
+      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+        darkMode
+          ? 'text-white hover:bg-slate-700'
+          : 'text-slate-700 hover:bg-white hover:shadow'
+      }`}
+    >
+      <Languages size={16} />
+      {language === 'English' ? 'ENG' : 'اردو'}
+    </button>
+  </div>
 
-        {/* Sign Out Button - Conditionally rendered */}
-        {user && (
-          <button 
-            onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/10 dark:hover:text-red-400 rounded-xl transition-colors font-medium"
-          >
-            <LogOut size={20} />
-            <span>Sign Out</span>
-          </button>
-        )}
-      </div>
+  {/* Logout */}
+  {user && (
+    <button
+      onClick={handleLogout}
+      className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition font-medium ${
+        darkMode
+          ? 'text-red-400 hover:bg-red-900/20'
+          : 'text-red-500 hover:bg-red-50'
+      }`}
+    >
+      <LogOut size={18} />
+      Sign Out
+    </button>
+  )}
+</div>
 
     </div>
   );
